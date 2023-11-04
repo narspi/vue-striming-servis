@@ -34,7 +34,7 @@ router.get("/add/:magnet", (req, res) => {
       length: data.length,
     }));
 
-    res.status(200).send(files);
+    res.status(200).send(files);  
   });
 });
 
@@ -42,7 +42,7 @@ interface RangeError extends Error {
   status: number;
 }
 
-router.get("/:magnet/:filename", (req, res, next) => {
+router.get("/:magnet/:filename", async (req, res, next) => {
   const {
     params: { magnet, filename },
     headers: { range }
@@ -56,48 +56,48 @@ router.get("/:magnet/:filename", (req, res, next) => {
     return next(error);
   }
 
-  const torrentFile = client.get(magnet) as Torrent;
+  const torrentFile = await client.get(magnet) as Torrent;
   if (!torrentFile) throw new Error('error');
   if (!torrentFile) {
     res.status(500).send("Error 500");
   } else {
     let file = <TorrentFile>{};
-    console.log(torrentFile);
-    // for (let i = 0; i < torrentFile.files.length; i++) {
-    //   const currentTorrentPiece = torrentFile.files[i];
-    //   if (currentTorrentPiece.name === filename) file = currentTorrentPiece;
-    // };
-    console.log(torrentFile.files)
-    // const filesize = file.length;
+    for (let i = 0; i < torrentFile.files.length; i++)   {
+      const currentTorrentPiece = torrentFile.files[i];
+      if (currentTorrentPiece.name === filename) file = currentTorrentPiece;
+    };
+
+    const filesize = file.length;
+    // console.log(file);
     // console.log(range);
-    // const [startParsed, endParsed] = range.replace(/bytes=/, '').split('-');
+    const [startParsed, endParsed] = range.replace(/bytes=/, '').split('-');
 
-    // const start = Number(startParsed);
-    // const end = endParsed? Number(endParsed) : filesize - 1;
+    const start = Number(startParsed);
+    const end = endParsed? Number(endParsed) : filesize - 1;
 
-    // const chunkSize = end - start + 1;
+    const chunkSize = end - start + 1;
 
-    // const headers = {
-    //   "Content-Range": `bytes ${start}-${end}/${filesize}`,
-    //   "Accept-Ranges": "bytes",
-    //   "Content-Length": chunkSize,
-    //   "Content-Type": "video/mp4"
-    // };
+    const headers = {
+      "Content-Range": `bytes ${start}-${end}/${filesize}`,
+      "Accept-Ranges": "bytes",
+      "Content-Length": chunkSize,
+      "Content-Type": "video/mp4"
+    };
 
-    // res.writeHead(206, headers);
+    res.writeHead(206, headers);
 
-    // const streamPositions = {
-    //   start,
-    //   end
-    // }
+    const streamPositions = {
+      start,
+      end
+    }
 
-    // const stream = file.createReadStream(streamPositions);
+    const stream = file.createReadStream(streamPositions);
 
-    // stream.pipe(res);
+    stream.pipe(res);
 
-    // stream.on('error',(err)=>{
-    //   next(err)
-    // })
+    stream.on('error',(err)=>{
+      next(err)
+    })
   }
 });
 
