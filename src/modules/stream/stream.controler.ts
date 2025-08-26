@@ -1,5 +1,5 @@
 import { Router } from "express";
-import WebTorrent, { Torrent, TorrentFile } from "webtorrent";
+import WebTorrent from "webtorrent";
 
 //8EFAEEA10552EEE1A335676AF72C831272AB8E93
 
@@ -56,12 +56,12 @@ router.get("/:magnet/:filename", async (req, res, next) => {
     return next(error);
   }
 
-  const torrentFile = await client.get(magnet) as Torrent;
+  const torrentFile = await client.get(magnet) as WebTorrent.Torrent;
   if (!torrentFile) throw new Error('error');
   if (!torrentFile) {
     res.status(500).send("Error 500");
   } else {
-    let file = <TorrentFile>{};
+    let file = {} as WebTorrent.TorrentFile;
     for (let i = 0; i < torrentFile.files.length; i++)   {
       const currentTorrentPiece = torrentFile.files[i];
       if (currentTorrentPiece.name === filename) file = currentTorrentPiece;

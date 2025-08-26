@@ -7,8 +7,8 @@ import {fileURLToPath} from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-import streamRouter from "./modules/stream/stream.controler";
-import contentRouter from "./modules/content/content.controler";
+import streamRouter from "./modules/stream/stream.controler.ts";
+import contentRouter from "./modules/content/content.controler.ts";
 
 const app = express();
 app.use(cors());

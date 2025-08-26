@@ -1,25 +1,43 @@
 {
   "compilerOptions": {
-    "target": "es2022",
-    "lib": ["ES2022"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "ES2022",
+    "target": "ES2022",
+    "module": "ESNext",
     "moduleResolution": "node",
+    "lib": ["ES2022", "DOM"],
+    "allowJs": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
+  "include": [
+    "src/**/*",
+    "*.d.ts"
+  ],
   "exclude": [
     "node_modules",
-  ],
-  "ts-node": {
-    "esm": true,
-    "experimentalSpecifierResolution": "node",
-  }
+    "dist",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
 }
