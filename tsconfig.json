@@ -4,7 +4,6 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "lib": ["ES2022", "DOM"],
-    "allowJs": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
@@ -12,32 +11,21 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": false,
-    "declarationMap": false,
     "sourceMap": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "removeComments": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "noImplicitThis": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["*"],
+      "@modules/*": ["modules/*"]
     }
   },
   "include": [
-    "src/**/*",
-    "*.d.ts"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",
     "dist",
-    "**/*.test.ts",
-    "**/*.spec.ts"
+    "**/*.test.ts"
   ]
 }
