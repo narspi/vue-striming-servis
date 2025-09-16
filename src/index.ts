@@ -21,5 +21,5 @@
     const PORT = process.env.PORT || 8080;
 
     app.listen(PORT,()=>{
-        console.log('start ')
+        console.log(`Адрес сайта: http://localhost:${PORT}/content`);
     })

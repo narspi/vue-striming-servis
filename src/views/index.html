@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="app">
-      <video :src="videoUrl" controls autoplay></video>
+      <video :src="videoUrl" controls autoplay v-if="activeVideo"></video>
       <div>
         {{videoUrl}}
       </div>
