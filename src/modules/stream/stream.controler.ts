@@ -51,7 +51,7 @@ router.get("/:magnet/:filename", async (req, res, next) => {
   console.log(filename);
 
   if (!range) {
-    const error = new Error('range is not definde') as RangeError;
+    const error = new Error('range is not define') as RangeError;
     error.status = 416;
     return next(error);
   }
